@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Asistencia marzo–junio 2026</title>
+<style>
+/* Layout: one column, three plain answers, each with one chart */
+:root{--bg:#f4f5f7;--card:#ffffff;--fg:#1d2433;--muted:#5a6477;--faint:#8a93a3;--soft:#f7f8fa;--grid:rgba(29,36,51,.08);--red:#c0392b;--green:#2a9d5b;--mar:#2a6f97;--jun:#e76f51}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14171d;--card:#1d2129;--fg:#e8ebf1;--muted:#a3abba;--faint:#7c8596;--soft:#252a34;--grid:rgba(232,235,241,.09);--red:#ef6f5f;--green:#4cc47f;--mar:#5aa6d6;--jun:#f08a6e;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#14171d;--card:#1d2129;--fg:#e8ebf1;--muted:#a3abba;--faint:#7c8596;--soft:#252a34;--grid:rgba(232,235,241,.09);--red:#ef6f5f;--green:#4cc47f;--mar:#5aa6d6;--jun:#f08a6e;color-scheme:dark}
+body{font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;margin:0;background:var(--bg);color:var(--fg)}
+.wrap{max-width:900px;margin:0 auto;padding-block:32px 40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.eyebrow{font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin:0 0 6px}
+h1{font-size:32px;margin:0 0 22px;line-height:1.2;text-wrap:balance}
+h1 em{font-style:normal;color:var(--red)}
+.big3{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-bottom:22px}
+.stat{background:var(--card);border-radius:12px;padding:16px 18px;box-shadow:0 1px 3px rgba(0,0,0,.08);min-width:0}
+.stat b{display:block;font-size:30px;color:var(--red);font-variant-numeric:tabular-nums;line-height:1.1}
+.stat span{font-size:15px;color:var(--fg);line-height:1.4;display:block;margin-top:6px}
+.card{background:var(--card);border-radius:12px;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,.08);margin-bottom:18px}
+h2{font-size:20px;margin:0 0 4px;text-wrap:balance}
+.ans{font-size:16px;color:var(--muted);margin:0 0 14px;line-height:1.45;max-width:65ch}
+.ans b{color:var(--fg)}
+.box{position:relative;height:300px}
+.todo{background:var(--card);border-radius:12px;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,.08);margin-bottom:18px;display:grid;gap:12px}
+.todo h2{margin:0}
+.row{display:flex;gap:12px;align-items:flex-start;font-size:15.5px;line-height:1.45}
+.tag{flex:none;font-size:12px;font-weight:700;padding:4px 9px;border-radius:999px;color:#fff;margin-top:1px;letter-spacing:.02em}
+.tag.r{background:var(--red)}.tag.g{background:var(--green)}
+.row div{min-width:0}
+.foot{font-size:12px;color:var(--faint);line-height:1.6}
+@media (max-width:600px){h1{font-size:25px}.stat b{font-size:26px}.box{height:260px}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+<p class="eyebrow">Alumnos con deuda · convocatorias de marzo y junio 2026</p>
+<h1>Cuanto más deben, <em>menos van a clase</em></h1>
+
+<div class="big3">
+ <div class="stat"><b>217.849 €</b><span>de deuda pendiente entre 253 alumnos</span></div>
+ <div class="stat"><b>95 alumnos</b><span>casi no van a clase (menos de 1 de cada 4) y deben 86.027 €</span></div>
+ <div class="stat"><b>42 alumnos</b><span>no han ido a ninguna clase y deben 38.114 €</span></div>
+</div>
+
+<div class="card"><h2>¿Los que deben más van menos a clase?</h2>
+<p class="ans"><b>Sí.</b> Quien debe menos de 500 € va a 2 de cada 3 clases. Quien debe más de 1.000 €, a 1 de cada 3.</p>
+<div class="box"><canvas id="c1"></canvas></div></div>
+
+<div class="card"><h2>¿Cómo evoluciona la asistencia durante el curso?</h2>
+<p class="ans"><b>Baja en las dos convocatorias.</b> En marzo se hunde: en la última clase solo estaba el 15 % de los alumnos. Junio aguanta mejor (39 %), pero aún no ha terminado.</p>
+<div class="box"><canvas id="c2"></canvas></div></div>
+
+<div class="card"><h2>¿Dónde está la deuda?</h2>
+<p class="ans"><b>Sobre todo en los que casi no asisten.</b> Los alumnos que van a menos del 25 % de las clases acumulan 4 de cada 10 euros de deuda.</p>
+<div class="box"><canvas id="c3"></canvas></div></div>
+
+<div class="todo"><h2>Qué hacer</h2>
+ <div class="row"><span class="tag r">Cobrar</span><div><b>74 alumnos que asisten poco y deben mucho</b> (78.122 €). Son los que tienen menos probabilidad de aprobar y de pagar por sí solos.</div></div>
+ <div class="row"><span class="tag g">Acompañar</span><div><b>53 alumnos que siguen asistiendo pero deben mucho</b> (56.595 €). Siguen implicados: si aprueban, es más fácil que paguen.</div></div>
+</div>
+
+<div class="foot">253 alumnos con deuda y registro de asistencia: no aptos de marzo 2026 y todos los de junio 2026 (curso en marcha, aún sin nota) · Las casillas vacías no cuentan · “Mucho” y “poco” = por encima o por debajo de la mitad del grupo (850 € de deuda, 45 % de asistencia) · La relación deuda–asistencia es clara por tramos, pero débil alumno por alumno (correlación −0,19).</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script>
+const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const $=id=>document.getElementById(id);
+const eur=v=>String(Math.round(v)).replace(/\B(?=(\d{3})+(?!\d))/g,'.')+' €';
+const FONT='-apple-system,Segoe UI,Roboto,Arial,sans-serif';
+const valTop=f=>({id:'vt',afterDatasetsDraw(ch){const {ctx}=ch;ch.getDatasetMeta(0).data.forEach((b,j)=>{ctx.save();ctx.fillStyle=css('--fg');ctx.font='bold 14px '+FONT;ctx.textAlign='center';ctx.fillText(f(ch.data.datasets[0].data[j]),b.x,b.y-8);ctx.restore()})}});
+const endLab={id:'el',afterDatasetsDraw(ch){const {ctx}=ch;ch.data.datasets.forEach((d,i)=>{const m=ch.getDatasetMeta(i);let j=d.data.length-1;while(d.data[j]==null)j--;const p=m.data[j];ctx.save();ctx.fillStyle=d.borderColor;ctx.font='bold 13px '+FONT;ctx.fillText(Math.round(d.data[j])+' %',p.x+8,p.y+4);ctx.restore()})}};
+function draw(){Object.values(Chart.instances).forEach(c=>c.destroy());
+ Chart.defaults.color=css('--muted');Chart.defaults.font.family=FONT;Chart.defaults.font.size=13;
+ const g=css('--grid'),red=css('--red'),green=css('--green');
+ new Chart($('c1'),{type:'bar',plugins:[valTop(v=>v+' %')],data:{labels:[['Menos de 500 €','19 alumnos'],['500 – 800 €','87 alumnos'],['800 – 1.000 €','83 alumnos'],['Más de 1.000 €','64 alumnos']],
+  datasets:[{data:[65,45,42,36],backgroundColor:[green,'#d4a017','#e8812a',red],borderRadius:6,maxBarThickness:90}]},
+  options:{responsive:true,maintainAspectRatio:false,layout:{padding:{top:22}},scales:{x:{grid:{display:false}},y:{min:0,max:80,grid:{color:g},ticks:{stepSize:20,callback:v=>v+' %'},title:{display:true,text:'Clases a las que asisten'}}},plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.raw+' % de asistencia media'}}}}});
+ new Chart($('c2'),{type:'line',plugins:[endLab],data:{labels:['Inicio','','','','','','','','','','','Mitad del curso','','','','','','','','','','','Final'],
+  datasets:[
+   {label:'Marzo 2026',data:[41.6,52.7,41.9,61.3,52.7,54.7,52.8,49.5,44.1,32.3,33.3,28,35.5,35.5,34.4,29,24.7,29,19.4,20.3,17.1,14.6,null],spanGaps:true,borderColor:css('--mar'),backgroundColor:css('--mar'),borderWidth:3,pointRadius:0,tension:.3},
+   {label:'Junio 2026 (en curso)',data:[44.2,50,58.6,60.1,55.3,50.3,51.6,52.2,49.3,45.3,52.5,45.9,42.8,40.3,41.3,47.2,37,42.1,42.1,45.3,35.2,43.6,38.5],borderColor:css('--jun'),backgroundColor:css('--jun'),borderWidth:3,borderDash:[7,5],pointRadius:0,tension:.3}]},
+  options:{responsive:true,maintainAspectRatio:false,layout:{padding:{right:44}},interaction:{mode:'index',intersect:false},scales:{x:{grid:{display:false},ticks:{autoSkip:false,maxRotation:0}},y:{min:0,max:80,grid:{color:g},ticks:{stepSize:20,callback:v=>v+' %'},title:{display:true,text:'Alumnos presentes'}}},plugins:{legend:{position:'bottom',labels:{usePointStyle:true,boxWidth:8}},tooltip:{enabled:false}}}});
+ new Chart($('c3'),{type:'bar',plugins:[valTop(eur)],data:{labels:[['Casi nunca','menos del 25 %','95 alumnos'],['Poco','25 – 50 %','40 alumnos'],['Bastante','50 – 75 %','59 alumnos'],['Casi siempre','más del 75 %','59 alumnos']],
+  datasets:[{data:[86027,35385,50148,46290],backgroundColor:[red,'#e8812a','#d4a017',green],borderRadius:6,maxBarThickness:90}]},
+  options:{responsive:true,maintainAspectRatio:false,layout:{padding:{top:22}},scales:{x:{grid:{display:false}},y:{min:0,max:100000,grid:{color:g},ticks:{stepSize:25000,callback:v=>eur(v)},title:{display:true,text:'Deuda total'}}},plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>eur(c.raw)}}}}});
+}
+draw();
+try{matchMedia('(prefers-color-scheme: dark)').addEventListener('change',draw);new MutationObserver(draw).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']})}catch(e){}
+</script>
+</body>
+</html>
